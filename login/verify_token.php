@@ -1,5 +1,8 @@
 <?php
-require_once 'config.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once 'connection.php';
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 function getAuthorizationHeader(){
     $headers = null;
@@ -30,29 +33,12 @@ function getBearerToken() {
     return null;
 }
 
-function verifyToken() {
-    $token = getBearerToken();
-    
-    if (!$token) {
-        header('HTTP/1.0 401 Unauthorized');
-        echo json_encode([
-            'status' => 'error',
-            'message' => 'No token provided'
-        ]);
-        exit();
+function verifyToken($token) {
+    try {
+        $decoded = JWT::decode($token, new Key(JWT_SECRET_KEY, 'HS256'));
+        return $decoded;
+    } catch (Exception $e) {
+        return false;
     }
-    
-    $decoded = JWT::decode($token, JWT_SECRET_KEY);
-    
-    if (!$decoded) {
-        header('HTTP/1.0 401 Unauthorized');
-        echo json_encode([
-            'status' => 'error',
-            'message' => 'Invalid token'
-        ]);
-        exit();
-    }
-    
-    return $decoded;
 }
 ?> 

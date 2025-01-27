@@ -1,0 +1,17 @@
+{
+    "name": "ajitgevariya/weather",
+    "autoload": {
+        "psr-4": {
+            "Ajitgevariya\\Weather\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "AJit Gevariya",
+            "email": "gevariyaajit@gmail.com"
+        }
+    ],
+    "require": {
+        "firebase/php-jwt": "^6.11"
+    }
+}
