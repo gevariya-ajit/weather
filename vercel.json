@@ -1,11 +1,12 @@
 {
   "version": 2,
   "builds": [
-    { "src": "api/*.js", "use": "@vercel/node" }
+    { "src": "api/*.php", "use": "vercel-php@0.4.0" }
   ],
   "routes": [
-    { "src": "/api/register", "dest": "/api/register.js" },
-    { "src": "/api/login", "dest": "/api/login.js" },
-    { "src": "/api/verify", "dest": "/api/verify.js" }
+    { "src": "/api/register", "dest": "/api/register.php" },
+    { "src": "/api/login", "dest": "/api/login.php" },
+    { "src": "/api/verify", "dest": "/api/verify_token.php" },
+    { "src": "/api/connection", "dest": "/api/connection.php" }
   ]
 } 
