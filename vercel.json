@@ -1,7 +1,10 @@
 {
   "functions": {
     "api/**/*.php": {
-      "runtime": "vercel-php@0.6.0"
+      "runtime": "vercel-php@0.6.0",
+      "excludeFiles": "{test/**}",
+      "memory": 256,
+      "maxDuration": 10
     }
   },
   "routes": [
@@ -9,5 +12,14 @@
     { "src": "/api/login", "dest": "/api/login.php" },
     { "src": "/api/verify", "dest": "/api/verify_token.php" },
     { "src": "/api/connection", "dest": "/api/connection.php" }
-  ]
+  ],
+  "build": {
+    "env": {
+      "NOW_PHP_DEBUG": "1"
+    }
+  },
+  "env": {
+    "PHP_INI_SCAN_DIR": "/var/task/php/conf.d",
+    "PHP_INI_DIR": "/var/task/php"
+  }
 } 
