@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "api/*.php": {
+      "runtime": "vercel-php@0.6.0"
+    }
+  },
+  "routes": [
+    { "src": "/api/register", "dest": "/login/register.php" },
+    { "src": "/api/login", "dest": "/login/login.php" },
+    { "src": "/api/verify", "dest": "/login/verify_token.php" },
+    { "src": "/(.*)", "dest": "/login/connection.php" }
+  ]
+} 
