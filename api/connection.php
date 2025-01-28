@@ -3,8 +3,10 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-// Add this constant for JWT
-define('JWT_SECRET_KEY', 'fuu7FM6j6d1GC/ir6QH5VQskSypjpq5mjFQPpw7Hx5s='); 
+// Add this constant for JWT only if not already defined
+if (!defined('JWT_SECRET_KEY')) {
+    define('JWT_SECRET_KEY', 'fuu7FM6j6d1GC/ir6QH5VQskSypjpq5mjFQPpw7Hx5s='); 
+}
 
 $hostname = "gateway01.ap-southeast-1.prod.aws.tidbcloud.com";
 $username = "3pKsFkk7zuFPMUt.root";
