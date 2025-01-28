@@ -8,12 +8,6 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
 try {
-    // Database connection
-    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-    if ($conn->connect_error) {
-        throw new Exception('Database connection failed: ' . $conn->connect_error);
-    }
-    
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Validate required fields
         $required_fields = ['username', 'password'];
@@ -27,7 +21,7 @@ try {
         $username = $_POST['username'];
         $password = md5($_POST['password']);
         
-        // Check user credentials
+        // Check user credentials using global $conn
         $sql = "SELECT id, username, email, firstname, lastname, picture FROM user WHERE username = ? AND password = ?";
         $stmt = $conn->prepare($sql);
         if (!$stmt) {
@@ -83,6 +77,5 @@ try {
     ]);
 } finally {
     if (isset($stmt)) $stmt->close();
-    if (isset($conn)) $conn->close();
 }
 ?>

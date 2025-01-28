@@ -8,12 +8,6 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
 try {
-    // Database connection
-    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-    if ($conn->connect_error) {
-        throw new Exception('Database connection failed: ' . $conn->connect_error);
-    }
-    
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Validate required fields
         $required_fields = ['username', 'email', 'password', 'firstname', 'lastname'];
@@ -31,7 +25,7 @@ try {
         $lastname = $_POST['lastname'];
         $picture = isset($_POST['picture']) ? $_POST['picture'] : '';
         
-        // Check existing user
+        // Check existing user using global $conn
         $check_sql = "SELECT * FROM user WHERE username = ? OR email = ?";
         $check_stmt = $conn->prepare($check_sql);
         if (!$check_stmt) {
@@ -45,7 +39,7 @@ try {
             throw new Exception('Username or email already exists');
         }
         
-        // Insert user
+        // Insert user using global $conn
         $sql = "INSERT INTO user (username, email, password, firstname, lastname, picture) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
         if (!$stmt) {
@@ -99,6 +93,5 @@ try {
 } finally {
     if (isset($stmt)) $stmt->close();
     if (isset($check_stmt)) $check_stmt->close();
-    if (isset($conn)) $conn->close();
 }
 ?>
