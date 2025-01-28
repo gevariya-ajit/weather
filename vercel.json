@@ -9,8 +9,6 @@
       { "src": "/api/verify", "dest": "/api/verify_token.php" },
       { "src": "/api/connection", "dest": "/api/connection.php" }
     ],
-    "hooks": {
-      "build": "apt-get update && apt-get install -y libssl1.0.0"
-    }
+    "buildCommand": "apt-get update && apt-get install -y libssl1.0.0"
   }
   
